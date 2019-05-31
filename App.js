@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { GiftedChat } from 'react-native-gifted-chat'
+import { GiftedChat, Bubble } from 'react-native-gifted-chat'
 
 const uuidv4 = require('uuid/v4');
 
@@ -8,6 +8,13 @@ const defaultUser = {
   _id: 1,
   name: 'News Reader',
 }
+
+const bgColours = [
+    '#d5f4e6',
+    '#80ced6',
+    '#fefbd8',
+    '#618685',
+]
 
 export default class App extends React.Component {
   state = {
@@ -224,6 +231,19 @@ export default class App extends React.Component {
     }
   }
 
+  renderBubble (props) {
+    return (
+      <Bubble
+        {...props}
+        wrapperStyle={{
+          right: {
+            backgroundColor: bgColours[Math.floor(Math.random()*bgColours.length)]
+          }
+        }}
+      />
+    )
+  }
+
   render() {
     return (
       <GiftedChat
@@ -238,6 +258,7 @@ export default class App extends React.Component {
         renderDay={() => null}
         renderTime={() => null}
         renderInputToolbar={() => null}
+        renderBubble={this.renderBubble}
       />
     )
   }
