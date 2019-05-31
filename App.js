@@ -11,7 +11,7 @@ const defaultUser = {
 
 const bgColours = [
     '#d5f4e6',
-    '#80ced6',ssh
+    '#80ced6',
     '#fefbd8',
     '#618685',
 ]
@@ -73,6 +73,7 @@ export default class App extends React.Component {
   }
 
   buildLiteMsgFromData(data) {
+    this.currentBgColour = this.getRandomBgColor()
     let newMsg = []
     let items = data.sequence || [];
     newMsg.push(this.buildMsg(items[0]))
@@ -143,7 +144,12 @@ export default class App extends React.Component {
       default:
         msg.text = item.value
     }
+    msg.currentBgColour = msg.currentBgColour || this.currentBgColour
     return msg
+  }
+
+  getRandomBgColor() {
+    return bgColours[Math.floor(Math.random()*bgColours.length)]
   }
 
   startRotating() {
@@ -232,12 +238,13 @@ export default class App extends React.Component {
   }
 
   renderBubble (props) {
+    let currentMsg = props.currentMessage
     return (
       <Bubble
         {...props}
         wrapperStyle={{
-          right: {
-            backgroundColor: bgColours[Math.floor(Math.random()*bgColours.length)]
+          left: {
+            backgroundColor: currentMsg.currentBgColour || bgColours[0]
           }
         }}
       />
