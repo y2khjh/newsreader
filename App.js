@@ -155,6 +155,7 @@ export default class App extends React.Component {
   startRotating() {
     if (!this.timer) {
       this.timer = setInterval(() => this.getNewMsg(), 5000)
+      delete this.timer
     }
   }
 
